@@ -9,9 +9,27 @@
 </head>
 <body>
     <nav>
-        <a href="search.html">Product search</a>
         <a href="index.html">Home</a>
+        <a href="search.html">Product search</a>
     </nav>
-    <h1>Products <Details></Details></h1>
+    <h1>Products details</h1>
 </body>
+<script>
+
+    const pairs = window.location.search.split("&");
+    const id = pairs[0].split("=")[1];
+    const category_name = pairs[1].split("=")[1];
+
+    async function getDetails(id){
+        const response = await fetch("http://localhost:8081/api/products/" + id);
+        const data = await response.json();
+        document.body.innerHTML += `
+        Unit Price: ${Number(data.UnitPrice).toFixed(2)}
+        Product Name: ${data.productName}
+        Poduct ID: ${data.productId}
+        
+        `
+    }
+    getDetails(id);
+</script>
 </html>

@@ -10,16 +10,26 @@
 </body>
 <script>
 
-    function onclickCategory(event){
+    function onClickCategory(event){
         const category_id = event.target.dataset.id;
         getProducts(category_id);
+        window.category_name = event.target.innerHTML; 
+        getProducts(event.target.dataset.id)
 
     }
+
+    function onClickProduct(event){
+        window.location = "details.html"+
+        "?product_id=" + event.target.dataset.id+
+        "&category_name=" + window.category_name;
+
+    }
+
     function displayCategory(item){
         const element = document.createElement("button");
         element.innerHTML = item.name;
         element.dataset.id = item.categoryId;
-        element.addEventListener("click", onclickCategory)
+        element.addEventListener("click", onClickCategory)
         category_target.appendChild(element)
         // document.body.appendChild(element)
     }
@@ -27,6 +37,8 @@
     function displayProduct(item){
         const element = document.createElement("button");
         element.innerHTML=item.productName;
+        element.dataset.id = item.productId;
+        element.addEventListener("click", onClickProduct)
         product_target.appendChild(element)
     }
 

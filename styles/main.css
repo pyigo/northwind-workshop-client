@@ -1,5 +1,10 @@
 body{
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-    background-color: darkblue;
+    background-color: #f38c10;
     color: antiquewhite;
+}
+
+nav a,
+nav a:visited{
+    color: white;
 }
