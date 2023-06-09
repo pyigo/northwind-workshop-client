@@ -1,0 +1,43 @@
+<body>
+    <div id="category_target"></div>
+    <hr>
+    <div id="product_target"></div>
+</body>
+<script>
+
+    function onclickCategory(event){
+        const category_id = event.target.dataset.id;
+        getProducts(category_id);
+
+    }
+    function displayCategory(item){
+        const element = document.createElement("button");
+        element.innerHTML = item.name;
+        element.dataset.id = item.categoryId;
+        element.addEventListener("click", onclickCategory)
+        category_target.appendChild(element)
+        // document.body.appendChild(element)
+    }
+
+    function displayProduct(item){
+        const element = document.createElement("button");
+        element.innerHTML=item.productName;
+        product_target.appendChild(element)
+    }
+
+
+    async function getProducts(category_id){
+        product_target.innerHTML="";
+        const response = await fetch("http://127.0.0.1:8081/api/categories/" + category_id)
+        const data = await response.json(); //like JSON.parse()
+        data.forEach(displayProduct)
+    }
+
+    async function getCategories(){
+        const response = await fetch("http://127.0.0.1:8081/api/categories")
+        const data = await response.json(); //like JSON.parse()
+        data.forEach(displayCategory)
+    }
+    
+    getCategories();
+</script>
